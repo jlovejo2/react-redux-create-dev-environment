@@ -52,7 +52,7 @@ module.exports = {
         //ignor node modules
         exclude: /node_modules/,
         //what to do with js files
-        use: ["babel-loader"],
+        use: ["babel-loader", "eslint-loader"],
       },
       //process CSS
       {
