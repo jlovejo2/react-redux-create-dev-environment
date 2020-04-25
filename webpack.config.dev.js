@@ -34,7 +34,7 @@ module.exports = {
     headers: { "Access-Control-Allow-Origin": "*" },
     https: false,
   },
-  plugin: [
+  plugins: [
     new HtmlWebpackPlugin({
       //where to find html template
       template: "src/index.html",
