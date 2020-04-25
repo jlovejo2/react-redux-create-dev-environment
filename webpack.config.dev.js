@@ -13,7 +13,7 @@ module.exports = {
   //target can say node which would let node play with it instead of the browser
   target: "web",
   //below devTool is recommended for development because it lets us see our source map in the browser
-  devTool: "cheap-module-source-map",
+  devtool: "cheap-module-source-map",
   //this declared entry point is also the default of webpack
   entry: "./src/index",
   output: {
