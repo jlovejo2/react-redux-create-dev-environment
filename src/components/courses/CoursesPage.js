@@ -1,4 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import * as courseActions from "../../redux/actions/courseActions";
+import PropTypes from "prop-types";
+import { bindActionCreators } from "redux";
 
 //could make a function and use useState and useEffect but instead
 //going with class component format for this page
@@ -28,6 +32,7 @@ class CoursesPage extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    this.props.actions.createCourse(this.state.course);
   };
 
   render() {
@@ -43,9 +48,38 @@ class CoursesPage extends React.Component {
         />
 
         <input type="submit" value="save" />
+        {this.props.courses.map((course) => (
+          <div key={course.title}>{course.title}</div>
+        ))}
       </form>
     );
   }
 }
 
-export default CoursesPage;
+CoursesPage.propTypes = {
+  actions: PropTypes.func.isRequired,
+  courses: PropTypes.array.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    courses: state.courses,
+  };
+}
+
+//This is a method of declaring mapDispatchToprops as an object
+//very concise methodology
+// const mapDispatchToProps = {
+//   createCourse: courseActions.createCourse,
+// };
+
+//This is the bind action creators methods for dispatching the actions
+function mapDispatchToProps(dispatch) {
+  return {
+    //must pass action creators to dispatch. Dispatch is the function that notifies redux about an action
+    actions: bindActionCreators(courseActions, dispatch),
+  };
+}
+
+//the connect function returns a function and then that function immediately calls our component (CoursesPage)
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);

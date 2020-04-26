@@ -1,7 +1,9 @@
+import * as types from "../actions/actionTypes";
+
 //state is being initialized as an empty array, because this will end up storing an array of courses
 export default function courseReducer(state = [], action) {
   switch (action.type) {
-    case "CREATE_COURSE":
+    case types.CREATE_COURSE:
       //can't use push because it mutates state
       return [...state, { ...action.course }];
 
