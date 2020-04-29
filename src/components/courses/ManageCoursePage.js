@@ -1,12 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { loadCourses } from "../../redux/actions/courseActions";
 import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
+import CourseForm from "./CourseForm";
+import { newCourse } from "../../../tools/mockData";
 
 //could make a function and use useState and useEffect but instead
 //going with class component format for this page
-function ManageCoursePage({ courses, authors, loadCourses, loadAuthors }) {
+function ManageCoursePage({
+  courses,
+  authors,
+  loadCourses,
+  loadAuthors,
+  ...props
+}) {
+  const [course, setCourse] = useState({ ...props.course });
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     if (courses.length === 0) {
       loadCourses().catch((error) => {
@@ -20,14 +31,29 @@ function ManageCoursePage({ courses, authors, loadCourses, loadAuthors }) {
     }
   }, []);
 
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setCourse((prevCourse) => ({
+      ...prevCourse,
+      [name]: name === "authorId" ? parseInt(value, 10) : value,
+    }));
+  }
+
   return (
     <>
-      <h2>Manage Course:</h2>
+      <CourseForm
+        course={course}
+        errors={errors}
+        authors={authors}
+        onChange={handleChange}
+      />
     </>
   );
 }
 
 ManageCoursePage.propTypes = {
+  course: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
   authors: PropTypes.object.isRequired,
   loadCourses: PropTypes.func.isRequired,
@@ -37,6 +63,7 @@ ManageCoursePage.propTypes = {
 //redux mapping function that indicates what states we'd like access to
 function mapStateToProps(state) {
   return {
+    course: newCourse,
     courses: state.courses,
     authors: state.authors,
   };
