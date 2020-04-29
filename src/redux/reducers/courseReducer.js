@@ -11,6 +11,12 @@ export default function courseReducer(state = initialState.courses, action) {
     case types.LOAD_COURSES_SUCCESS:
       return action.courses;
 
+    case types.UPDATE_COURSE_SUCCESS:
+      return action.courses;
+
+    case types.CREATE_COURSE_SUCCESS:
+      return action.courses;
+
     //always declare a default, it results in reducer returning untouched state for actions it doesn't care about
     default:
       return state;
