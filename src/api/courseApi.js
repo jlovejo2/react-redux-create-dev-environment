@@ -8,6 +8,10 @@ export function getCourses() {
 }
 
 export function saveCourse(course) {
+  console.log("base url", baseUrl);
+  console.log("course", course);
+  console.log("course id", course.id);
+
   return fetch(baseUrl + (course.id || ""), {
     method: course.id ? "PUT" : "POST", // POST for create, PUT to update when id already exists.
     headers: { "content-type": "application/json" },

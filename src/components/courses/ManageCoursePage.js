@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { loadCourses } from "../../redux/actions/courseActions";
+import { loadCourses, saveCourse } from "../../redux/actions/courseActions";
 import { loadAuthors } from "../../redux/actions/authorActions";
 import PropTypes from "prop-types";
 import CourseForm from "./CourseForm";
@@ -13,6 +13,7 @@ function ManageCoursePage({
   authors,
   loadCourses,
   loadAuthors,
+  saveCourse,
   ...props
 }) {
   const [course, setCourse] = useState({ ...props.course });
@@ -40,6 +41,11 @@ function ManageCoursePage({
     }));
   }
 
+  function handleSave(event) {
+    event.preventDefault();
+    saveCourse(course);
+  }
+
   return (
     <>
       <CourseForm
@@ -47,6 +53,7 @@ function ManageCoursePage({
         errors={errors}
         authors={authors}
         onChange={handleChange}
+        onSave={handleSave}
       />
     </>
   );
@@ -58,6 +65,7 @@ ManageCoursePage.propTypes = {
   authors: PropTypes.object.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
+  saveCourse: PropTypes.func.isRequired,
 };
 
 //redux mapping function that indicates what states we'd like access to
@@ -76,6 +84,7 @@ const mapDispatchToProps = {
   loadCourses: loadCourses,
   //can remove right hand side since they are the same name.  Shortcut for javascript
   loadAuthors,
+  saveCourse,
 };
 
 //the connect function returns a function and then that function immediately calls our component (ManageCoursePage)

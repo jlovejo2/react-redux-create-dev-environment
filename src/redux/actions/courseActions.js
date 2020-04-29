@@ -28,6 +28,7 @@ export function loadCourses() {
     return courseApi
       .getCourses()
       .then((courses) => {
+        console.log("action: loading courses", courses);
         dispatch(loadCoursesSuccess(courses));
       })
       .catch((error) => {
@@ -36,11 +37,12 @@ export function loadCourses() {
   };
 }
 
-export function saveCourses(course) {
+export function saveCourse(course) {
   return function (dispatch, getState) {
     return courseApi
-      .saveCourse()
+      .saveCourse(course)
       .then((savedCourse) => {
+        console.log("saving course", savedCourse);
         course.id
           ? dispatch(updateCourseSuccess(savedCourse))
           : dispatch(createCourseSuccess(savedCourse));
