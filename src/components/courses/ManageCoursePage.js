@@ -26,13 +26,16 @@ function ManageCoursePage({
       loadCourses().catch((error) => {
         alert("Loading courses failed" + error);
       });
+    } else {
+      setCourse({ ...props.course });
     }
+
     if (authors.length === 0) {
       loadAuthors().catch((error) => {
         alert("Loading authors failed" + error);
       });
     }
-  }, []);
+  }, [props.course]);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -73,10 +76,22 @@ ManageCoursePage.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
+//this type of function is commonly called a selector function
+function getCourseBySlug(courses, slug) {
+  return courses.find((course) => course.slug === slug || null);
+}
+
 //redux mapping function that indicates what states we'd like access to
-function mapStateToProps(state) {
+//mapStateToProps will run each time the redux store state changes
+//ownProps is automatically populated by react, it gives us access to our components props
+function mapStateToProps(state, ownProps) {
+  const slug = ownProps.match.params.slug;
+  const course =
+    slug && state.courses.length > 0
+      ? getCourseBySlug(state.courses, slug)
+      : newCourse;
   return {
-    course: newCourse,
+    course,
     courses: state.courses,
     authors: state.authors,
   };
