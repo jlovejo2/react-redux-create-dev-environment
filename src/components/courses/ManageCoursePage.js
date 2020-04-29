@@ -14,6 +14,8 @@ function ManageCoursePage({
   loadCourses,
   loadAuthors,
   saveCourse,
+  //history is passed in automatically by react router
+  history,
   ...props
 }) {
   const [course, setCourse] = useState({ ...props.course });
@@ -43,7 +45,9 @@ function ManageCoursePage({
 
   function handleSave(event) {
     event.preventDefault();
-    saveCourse(course);
+    saveCourse(course).then(() => {
+      history.push("/courses");
+    });
   }
 
   return (
@@ -66,6 +70,7 @@ ManageCoursePage.propTypes = {
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 //redux mapping function that indicates what states we'd like access to
