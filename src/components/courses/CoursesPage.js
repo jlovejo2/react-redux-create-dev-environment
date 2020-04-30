@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
+import Spinner from "../common/Spinner";
 
 //could make a function and use useState and useEffect but instead
 //going with class component format for this page
@@ -35,6 +36,8 @@ class CoursesPage extends React.Component {
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
 
         <h2>Course:</h2>
+
+        <Spinner />
         <button
           style={{ marginBottom: 20 }}
           className="btn btn-primary add-course"
