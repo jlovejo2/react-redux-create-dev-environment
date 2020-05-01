@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 //could make a function and use useState and useEffect but instead
 //going with class component format for this page
-function ManageCoursePage({
+export function ManageCoursePage({
   courses,
   authors,
   loadCourses,
@@ -95,7 +95,7 @@ function ManageCoursePage({
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
-  authors: PropTypes.object.isRequired,
+  authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
