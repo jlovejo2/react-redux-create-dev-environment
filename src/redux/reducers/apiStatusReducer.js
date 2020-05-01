@@ -15,7 +15,10 @@ export default function apiStatusReducer(
   //and the if-else statement I don't need a separate action-reducer combo to track when the apiCallsEnd
   if (action.type == types.BEGIN_API_CALL) {
     return state + 1;
-  } else if (actionTypeEndsInSuccess(action.type)) {
+  } else if (
+    action.type === types.API_CALL_ERROR ||
+    actionTypeEndsInSuccess(action.type)
+  ) {
     return state - 1;
   }
 
