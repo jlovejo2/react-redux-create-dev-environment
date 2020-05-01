@@ -16,6 +16,11 @@ export default function courseReducer(state = initialState.courses, action) {
         course.id === action.course.id ? action.course : course
       );
 
+    case types.DELETE_COURSE_OPTIMISTIC:
+      //filter is important here because it return a new array of elements that meet the criteria
+      //So state is not being changed
+      return state.filter((course) => course.id !== action.course.id);
+
     //always declare a default, it results in reducer returning untouched state for actions it doesn't care about
     default:
       return state;
