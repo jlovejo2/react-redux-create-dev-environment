@@ -30,11 +30,16 @@ class CoursesPage extends React.Component {
     }
   }
 
-  handleDeleteCourse = (course) => {
+  //alternative method for async calls.
+  //Benefits to async await is that you can use try/catch combinations
+  //Also have syntactic sugar
+  handleDeleteCourse = async (course) => {
     toast.success("Course Deleted");
-    this.props.actions.deleteCourse(course).catch((error) => {
+    try {
+      await this.props.actions.deleteCourse(course);
+    } catch (error) {
       toast.error("Delete failed. " + error.message, { autClose: false });
-    });
+    }
   };
 
   render() {
