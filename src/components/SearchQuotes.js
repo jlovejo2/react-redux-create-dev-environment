@@ -3,9 +3,16 @@ import PropTypes from "prop-types";
 import { loadRonSwansonQuotes } from "../redux/actions/ronSwansonApiActions";
 import { connect } from "react-redux";
 
-export function SearchQuotes({ history, ...props }) {
+export function SearchQuotes({ loadRonSwansonQuotes, history, ...props }) {
+  const [ronSwansonQuotes, setRonSwansonQuotes] = useState("");
+  const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
+
   const handleSearchApi = () => {
     console.log("searching...");
+    loadRonSwansonQuotes().catch((error) => {
+      alert("Loading Ron Swanson Quotes failed" + error);
+    });
   };
 
   return (

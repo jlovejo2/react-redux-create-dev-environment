@@ -17,7 +17,8 @@ export function loadRonSwansonQuotes() {
     return ronSwansonApi
       .getRonSwanson()
       .then((resp) => {
-        dispatch(loadRonSwansonQuotes(resp));
+        console.log(resp);
+        dispatch(loadRonSwansonQuotesSuccess(resp));
       })
       .catch((error) => {
         dispatch(apiCallError(error));
