@@ -10,14 +10,16 @@ export function SearchQuotes({ quotes, history, ...props }) {
 
   const handleSearchApi = () => {
     console.log("searching...");
-    loadRonSwansonQuotes()
-      // .then(() => {
-      //   console.log(quotes);
-      // })
-      .catch((error) => {
-        alert("Loading Ron Swanson Quotes failed" + error);
-      });
+    loadRonSwansonQuotes();
+    // .then(() => {
+    //   console.log(quotes);
+    // })
+    // .catch((error) => {
+    //   alert("Loading Ron Swanson Quotes failed" + error);
+    // });
     setRonSwansonQuotes({ ...ronSwansonQuotes, one: quotes });
+
+    console.log(ronSwansonQuotes);
   };
 
   return (
@@ -31,7 +33,7 @@ export function SearchQuotes({ quotes, history, ...props }) {
 }
 
 SearchQuotes.propTypes = {
-  // quotes: PropTypes.object.isRequired,
+  quotes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   loadRonSwansonQuotes: PropTypes.func.isRequired,
 };
