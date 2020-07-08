@@ -3,16 +3,21 @@ import PropTypes from "prop-types";
 import { loadRonSwansonQuotes } from "../redux/actions/ronSwansonApiActions";
 import { connect } from "react-redux";
 
-export function SearchQuotes({ loadRonSwansonQuotes, history, ...props }) {
-  const [ronSwansonQuotes, setRonSwansonQuotes] = useState("");
+export function SearchQuotes({ quotes, history, ...props }) {
+  const [ronSwansonQuotes, setRonSwansonQuotes] = useState({});
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
   const handleSearchApi = () => {
     console.log("searching...");
-    loadRonSwansonQuotes().catch((error) => {
-      alert("Loading Ron Swanson Quotes failed" + error);
-    });
+    loadRonSwansonQuotes()
+      // .then(() => {
+      //   console.log(quotes);
+      // })
+      .catch((error) => {
+        alert("Loading Ron Swanson Quotes failed" + error);
+      });
+    setRonSwansonQuotes({ ...ronSwansonQuotes, one: quotes });
   };
 
   return (
@@ -26,6 +31,7 @@ export function SearchQuotes({ loadRonSwansonQuotes, history, ...props }) {
 }
 
 SearchQuotes.propTypes = {
+  // quotes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   loadRonSwansonQuotes: PropTypes.func.isRequired,
 };
@@ -33,7 +39,9 @@ SearchQuotes.propTypes = {
 function mapStateToProps(state, ownProps) {
   console.log(ownProps);
 
-  return {};
+  return {
+    quotes: state.quotes,
+  };
 }
 
 const mapDispatchToProps = {

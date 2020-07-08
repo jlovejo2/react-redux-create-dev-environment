@@ -3,7 +3,7 @@ import * as ronSwansonApi from "../../api/ronSwansonApi";
 import { beginApiCall, apiCallError } from "./apiStatusActions";
 
 export function loadRonSwansonQuotesSuccess(quotes) {
-  console.log(quotes);
+  // console.log(quotes);
   return {
     type: types.LOAD_RON_SWANSON_QUOTES_SUCCESS,
     quotes: quotes /*can be written as just courses*/,
